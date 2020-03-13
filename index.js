@@ -1,6 +1,6 @@
 const request = require('request-promise');
 const $ = require('cheerio');
-const { each } = require('lodash');
+const { each, slice } = require('lodash');
 
 const GOODREADS_URL = 'https://www.goodreads.com';
 const LISTS_URI = '/list/book';
@@ -39,6 +39,7 @@ const findLists = async ({ bookId, searchString }) => {
 
 const findBookIds = async ({ allPages = false, searchString }) => {
   const results = [];
+  const total = allPages ? Infinity : 5;
   let cur = 1;
   let max = 1;
 
@@ -65,7 +66,7 @@ const findBookIds = async ({ allPages = false, searchString }) => {
       nextPage = $('a.next_page', html);
     }
   }
-  results.map(({ bookName, authorName, rating, bookURL }) => {
+  slice(results, 0, total).map(({ bookName, authorName, rating, bookURL }) => {
     console.log(`${bookName} by ${authorName}; ${rating}; ${bookURL}`);
   });
 }
