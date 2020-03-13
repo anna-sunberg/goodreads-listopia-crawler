@@ -11,7 +11,7 @@ const findLists = async ({ bookId, searchString }) => {
   let cur = 1;
   let max = 1;
 
-  let html = await request(`${GOODREADS_URL}${LISTS_URI}/${bookId}?page=${cur}`);
+  let html = await request(encodeURI(`${GOODREADS_URL}${LISTS_URI}/${bookId}?page=${cur}`));
 
   const nextPage = $('a.next_page', html);
   if (nextPage.length) {
@@ -42,7 +42,7 @@ const findBookIds = async ({ allPages = false, searchString }) => {
   let cur = 1;
   let max = 1;
 
-  let html = await request(`${GOODREADS_URL}${SEARCH_URI}${searchString.replace(/ /g, '+')}`);
+  let html = await request(encodeURI(`${GOODREADS_URL}${SEARCH_URI}${searchString.replace(/ /g, '+')}`));
 
   let nextPage = $('a.next_page', html);
   if (nextPage.length) {
