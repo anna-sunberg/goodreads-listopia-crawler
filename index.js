@@ -22,7 +22,7 @@ const findLists = async ({ bookId, searchString }) => {
     const listTitles = $('a.listTitle', html);
     each(listTitles, ((listTitle) => {
       const title = listTitle.children[0].data;
-      if (title.toLowerCase().indexOf(searchString) > -1) {
+      if (title.toLowerCase().indexOf(searchString.toLowerCase()) > -1) {
         console.log(title);
         results.push({
           title,
